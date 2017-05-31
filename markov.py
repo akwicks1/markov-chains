@@ -62,47 +62,55 @@ def make_chains(text_string, n=2):
 
 def make_text(chains):
     """Returns text from chains."""
-
+    
     link_key = choice(chains.keys())
-    # words = [' '.join(link_key)]
-    words = list(link_key)
+    # cap_word = str(link_key[0])
+    # # link_key = str(link_key)
+    # if cap_word == cap_word.capitalize():
+    # # words = [' '.join(link_key)]
+    #     print link_key
+    if link_key[0][0] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        words = list(link_key)
+        
 
-    # print first_link_key
-    # print first_link_value
-    # print second_link_key
-    # your code goes here
-    while True:
 
-        try:
-            # get a random value from the first keys values
-            # select next word
-            next_word = choice(chains[link_key])
 
-        except KeyError:
+    # # print first_link_key
+    # # print first_link_value
+    # # print second_link_key
+    # # your code goes here
+    # while True:
 
-            # stops at end of file
-            # there's no key for the last bigram
-            break
-        # begin on a capital letter and end on a sentence puntuation
-        # if
-        # add next word to list
-        words.append(next_word)
-        # words = s.join(words)
-        # find next key
-        link_key = (link_key[1:]) + (next_word,)
-        # print link_key
-    # second_link_key = (first_link_key[1], first_link_value)
-    # second_link_value = choice(chains[second_link_key])
-    #     words.append(first_link_value)
-    #     first_link_key = (first_link_key[1],
-    #     words.append(choice(chains.values()))
+    #     try:
+    #         # get a random value from the first keys values
+    #         # select next word
+    #         next_word = choice(chains[link_key])
+
+    #     except KeyError:
+
+    #         # stops at end of file
+    #         # there's no key for the last bigram
+    #         break
+    #     # begin on a capital letter and end on a sentence puntuation
+    #     # if
+    #     # add next word to list
+    #     words.append(next_word)
+    #     # words = s.join(words)
+    #     # find next key
+    #     link_key = (link_key[1:]) + (next_word,)
+    #     # print link_key
+    # # second_link_key = (first_link_key[1], first_link_value)
+    # # second_link_value = choice(chains[second_link_key])
+    # #     words.append(first_link_value)
+    # #     first_link_key = (first_link_key[1],
+    # #     words.append(choice(chains.values()))
+    # # print words
+    # # print "first link value", first_link_value
+    # # print "second_link_key", second_link_key
+    # # # return " ".join(words)
+    # words = " ".join(words)
+
     # print words
-    # print "first link value", first_link_value
-    # print "second_link_key", second_link_key
-    # # return " ".join(words)
-    words = " ".join(words)
-
-    print words
 
 
 n = int(raw_input("How many words do you want in your gram?: "))
