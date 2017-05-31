@@ -3,6 +3,8 @@
 
 from random import choice
 
+import sys
+
 
 def open_and_read_file(file_path):
     """Takes file path as string; returns text as string.
@@ -21,7 +23,7 @@ def open_and_read_file(file_path):
     return contents
 
 
-def make_chains(text_string):
+def make_chains(text_string, n=2):
     """Takes input text as string; returns dictionary of markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -47,12 +49,13 @@ def make_chains(text_string):
 
     chains = {}
 
-    for i in range(len(text) - 2):
-        key = (text[i], text[i + 1])
+    for i in range(len(text) - n):
+        key = text[i:i + n]
+        key = tuple(key)
         if key not in chains:
-            chains[key] = [text[i + 2]]
+            chains[key] = [text[i + n]]
         else:
-            chains[key].append(text[i + 2])
+            chains[key].append(text[i + n])
     # print chains
     return chains
 
@@ -80,13 +83,14 @@ def make_text(chains):
             # stops at end of file
             # there's no key for the last bigram
             break
-
+        # begin on a capital letter and end on a sentence puntuation
+        # if
         # add next word to list
         words.append(next_word)
         # words = s.join(words)
         # find next key
-        link_key = (link_key[1], next_word)
-
+        link_key = (link_key[1:]) + (next_word,)
+        # print link_key
     # second_link_key = (first_link_key[1], first_link_value)
     # second_link_value = choice(chains[second_link_key])
     #     words.append(first_link_value)
@@ -100,13 +104,17 @@ def make_text(chains):
 
     print words
 
-input_path = "gettysburg.txt"
+
+n = int(raw_input("How many words do you want in your gram?: "))
+
+
+input_path = sys.argv[1]
 
 # Open the file and turn it into one long string
 cheesecake = open_and_read_file(input_path)
 
 # # Get a Markov chain
-chains = make_chains(cheesecake)
+chains = make_chains(cheesecake, n)
 
 # # Produce random text
 random_text = make_text(chains)
