@@ -47,28 +47,60 @@ def make_chains(text_string):
 
     chains = {}
 
-    for i in range(len(text)-2):
+    for i in range(len(text) - 2):
         key = (text[i], text[i + 1])
         if key not in chains:
             chains[key] = [text[i + 2]]
         else:
             chains[key].append(text[i + 2])
-
+    # print chains
     return chains
-
 
 
 def make_text(chains):
     """Returns text from chains."""
 
-    words = []
+    link_key = choice(chains.keys())
+    # words = [' '.join(link_key)]
+    words = list(link_key)
 
+    # print first_link_key
+    # print first_link_value
+    # print second_link_key
     # your code goes here
+    while True:
 
-    return " ".join(words)
+        try:
+            # get a random value from the first keys values
+            # select next word
+            next_word = choice(chains[link_key])
 
+        except KeyError:
 
-input_path = "green-eggs.txt"
+            # stops at end of file
+            # there's no key for the last bigram
+            break
+
+        # add next word to list
+        words.append(next_word)
+        # words = s.join(words)
+        # find next key
+        link_key = (link_key[1], next_word)
+
+    # second_link_key = (first_link_key[1], first_link_value)
+    # second_link_value = choice(chains[second_link_key])
+    #     words.append(first_link_value)
+    #     first_link_key = (first_link_key[1],
+    #     words.append(choice(chains.values()))
+    # print words
+    # print "first link value", first_link_value
+    # print "second_link_key", second_link_key
+    # # return " ".join(words)
+    words = " ".join(words)
+
+    print words
+
+input_path = "gettysburg.txt"
 
 # Open the file and turn it into one long string
 cheesecake = open_and_read_file(input_path)
@@ -77,6 +109,6 @@ cheesecake = open_and_read_file(input_path)
 chains = make_chains(cheesecake)
 
 # # Produce random text
-# random_text = make_text(chains)
+random_text = make_text(chains)
 
 # print random_text
